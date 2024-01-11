@@ -12,7 +12,11 @@ def main():
     st.title('PowerPoint Inverter')
     st.write('Welcome to the PowerPoint Inverter app! Please upload .pptx files or a .zip file containing .pptx files to invert.')
 
-    uploaded_files = st.file_uploader('Choose PowerPoint files (.pptx) or a .zip file', accept_multiple_files=True)
+    one, two = st.columns([2, 1])
+
+    uploaded_files = one.file_uploader('Choose PowerPoint files (.pptx) or a .zip file', accept_multiple_files=True)
+    suffix = two.text_input('Suffix for inverted files', value='(inverted)')
+    
     if uploaded_files:
         st.success('Files uploaded successfully.')
         with tempfile.TemporaryDirectory() as tmpdirname:
@@ -21,7 +25,7 @@ def main():
                 for uploaded_file in uploaded_files:
                     if uploaded_file.name.endswith('.pptx'):
                         prs = read_pptx(uploaded_file)
-                        output_file_path = save_presentation(prs, tmpdirname, os.path.splitext(uploaded_file.name)[0] + ' (inverted).pptx')
+                        output_file_path = save_presentation(prs, tmpdirname, os.path.splitext(uploaded_file.name)[0] + f' {suffix}.pptx')
                         pp_filenames.append(output_file_path)
                     elif uploaded_file.name.endswith('.zip'):
                         with zipfile.ZipFile(uploaded_file, 'r') as zip_ref:
@@ -29,7 +33,7 @@ def main():
                         for file_name in os.listdir(tmpdirname):
                             if file_name.endswith('.pptx'):
                                 prs = read_pptx(os.path.join(tmpdirname, file_name))
-                                output_file_path = save_presentation(prs, tmpdirname, os.path.splitext(file_name)[0] + ' (inverted).pptx')
+                                output_file_path = save_presentation(prs, tmpdirname, os.path.splitext(file_name)[0] + f' {suffix}.pptx')
                                 pp_filenames.append(output_file_path)
                 date = datetime.now().strftime('%Y%m%d%H%M%S')
                 zip_name = f'Inverted Presentations - {date}.zip'
