@@ -10,7 +10,11 @@ def invert_image_colors(slide):
             # Extract the image from the shape
             image_stream = io.BytesIO(shape.image.blob)
             with Image.open(image_stream) as img:
-                # Invert the image color using Pillow
+                # If image format is not supported convert it first
+                if img.mode not in ('RGB', 'RGBA'):
+                    img = img.convert('RGB')
+
+                # Invert the image color using Pillow only if supported
                 inverted_img = ImageOps.invert(img)
 
                 # Save the inverted image to a stream

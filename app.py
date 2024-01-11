@@ -12,7 +12,7 @@ def main():
 
     uploaded_files = st.file_uploader('Choose PowerPoint files (.pptx) or a .zip file', accept_multiple_files=True)
     if uploaded_files:
-        st.write('Files uploaded successfully.')
+        st.success('Files uploaded successfully.')
         with tempfile.TemporaryDirectory() as tmpdirname:
             pp_filenames = []
             for uploaded_file in uploaded_files:
