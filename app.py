@@ -7,19 +7,21 @@ import tempfile
 from pptx_reader import read_pptx
 from pptx_writer import save_presentation
 
+
 def main():
     date = datetime.now().strftime('%Y-%m-%d')
-    
+
     st.set_page_config(page_title='PowerPoint Inverter', page_icon='🔃')
     st.title('PowerPoint Inverter')
     st.write('Welcome to the PowerPoint Inverter! Please upload .pptx files or a .zip file containing .pptx files to invert.')
 
     st.sidebar.header("Options")
-    options_form = st.sidebar.form("options")
+    options_form = st.sidebar.form(key="options")
 
-    file_suffix = options_form.text_input('Suffix for inverted files', value='(inverted)')
-    folder_name = options_form.text_input('Folder name for inverted files', value='Inverted Presentations')
-    folder_suffix = "" if options_form.selectbox('Suffix for folder name', options=[date, 'Nothing'], index=0) == 'Nothing' else date
+    file_suffix = options_form.text_input('Suffix for inverted files', value='(inverted)',key='file_suffix')
+    folder_name = options_form.text_input('Folder name for inverted files', value='Inverted Presentations', key='folder_name')
+    folder_suffix = "" if options_form.selectbox('Suffix for folder name', options=[date, 'Nothing'], index=0, key='folder_suffix') == 'Nothing' else date
+
     submitted = options_form.form_submit_button("Apply")
 
     if submitted:
