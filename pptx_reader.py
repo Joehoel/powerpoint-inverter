@@ -1,6 +1,7 @@
 from pptx import Presentation
 from color_inverter import invert_text_and_background
 from image_inverter import invert_image_colors  # New import statement
+import streamlit as st
 
 def read_pptx(file_stream):
     # Load the presentation

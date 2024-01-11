@@ -3,7 +3,6 @@ import io
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 from pptx.util import Inches
 
-
 def invert_image_colors(slide):
     for shape in slide.shapes:
         if shape.shape_type == MSO_SHAPE_TYPE.PICTURE:
