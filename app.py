@@ -8,6 +8,7 @@ from pptx_reader import read_pptx
 from pptx_writer import save_presentation
 
 def main():
+    st.set_page_config(page_title='PowerPoint Inverter', page_icon='🔃')
     st.title('PowerPoint Inverter')
     st.write('Welcome to the PowerPoint Inverter app! Please upload .pptx files or a .zip file containing .pptx files to invert.')
 
